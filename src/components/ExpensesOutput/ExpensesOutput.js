@@ -15,10 +15,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginBottom: 40,
-    // paddingTop: 24,
-    // paddingBottom: 0,
-    // backgroundColor: '#faf',
-    // alignItems: 'center',
-    // justifyContent: 'flex-start',
   },
 });

@@ -1,19 +1,10 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, View } from 'react-native';
 import ExpenseItem from './ExpensesItem';
 
 export default function ExpensesList({ expenses }) {
   return (
-    <View style={styles.container}>
+    <View>
       <FlatList data={expenses} renderItem={({ item }) => <ExpenseItem expense={item} />} />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    // flex: 1,
-    // backgroundColor: '#fff',
-    // alignItems: 'center',
-    // justifyContent: 'center',
-  },
-});
