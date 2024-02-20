@@ -62,8 +62,6 @@ export default function BarCodeScannerScreen({ navigation }) {
     }
   }
 
-  // handleBarCodeScanned({ data: '0016571951603' });
-
   return (
     <View style={styles.container}>
       <Camera

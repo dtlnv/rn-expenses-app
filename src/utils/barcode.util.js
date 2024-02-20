@@ -1,13 +1,11 @@
 import { DUMMY_BARCODE_DATA } from '../constants/dummy-data';
 
 export async function fetchProductData(barcode) {
-  // https://api.barcodelookup.com/v3/products?barcode=0016571951603&formatted=y&key=8ehoq4rqxzguuqfg26fui9njiv642t
-  const url = `https://jsonplaceholder.typicode.com/posts/1/comments`;
+  const url = `https://api.barcodelookup.com/v3/products?barcode=${barcode}&formatted=y&key=8ehoq4rqxzguuqfg26fui9njiv642t`;
   try {
-    // const response = await fetch(url);
-    // const data = await response.json();
-    // console.log('data', data);
-    return DUMMY_BARCODE_DATA;
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
   } catch (error) {
     return DUMMY_BARCODE_DATA;
   }

@@ -27,7 +27,7 @@ export default function ManageExpense({ navigation, route }) {
       return;
     }
     if (isEditMode) {
-      expensesContext.updateExpense(expense.id, { description, price, date: new Date() });
+      expensesContext.updateExpense(expense.id, { description, price });
     } else {
       expensesContext.addExpense({ description, price });
     }
@@ -60,13 +60,7 @@ export default function ManageExpense({ navigation, route }) {
           onChangeText={setDescription}
           autoFocus
         />
-        <Input
-          label='Price'
-          placeholder='Add an price here...'
-          value={price}
-          onChangeText={setPrice}
-          keyboardType='numeric'
-        />
+        <Input label='Price' placeholder='Add an price here...' value={price} onChangeText={setPrice} keyboardType='numeric' />
       </View>
       <View style={styles.buttonRow}>
         <IconButton type='secondary' onPress={cancelHandler}>

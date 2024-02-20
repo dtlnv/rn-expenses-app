@@ -25,51 +25,21 @@ export const DUMMY_EXPENSES = [
   },
   {
     id: 'e5',
-    description: 'Toilet Paper',
-    price: 94.12,
+    description: 'Corn',
+    price: 4.25,
     date: new Date(2020, 7, 14),
   },
   {
     id: 'e6',
     description: 'New TV',
     price: 799.49,
-    date: new Date(2021, 2, 12),
+    date: new Date(2022, 5, 16),
   },
   {
     id: 'e7',
-    description: 'Car Insurance',
-    price: 294.67,
-    date: new Date(2021, 2, 28),
-  },
-  {
-    id: 'e8',
-    description: 'New Desk (Wooden)',
-    price: 450,
-    date: new Date(2021, 5, 12),
-  },
-  {
-    id: 'e9',
-    description: 'Toilet Paper',
-    price: 94.12,
-    date: new Date(2020, 7, 14),
-  },
-  {
-    id: 'e10',
-    description: 'New TV',
-    price: 799.49,
-    date: new Date(2021, 2, 12),
-  },
-  {
-    id: 'e11',
-    description: 'Car Insurance',
-    price: 294.67,
-    date: new Date(2021, 2, 28),
-  },
-  {
-    id: 'e12',
-    description: 'New Desk (Wooden)',
-    price: 450,
-    date: new Date(2021, 5, 12),
+    description: 'Chair',
+    price: 229.99,
+    date: new Date(2024, 1, 19),
   },
 ];
 

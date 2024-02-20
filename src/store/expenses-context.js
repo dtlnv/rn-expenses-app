@@ -28,7 +28,6 @@ function expensesReduser(state, action) {
         ...state[expenseIndex],
         description: action.payload.description,
         price: Number(action.payload.price),
-        date: action.payload.date,
       };
       const updatedExpenses = [...state];
       updatedExpenses[expenseIndex] = updatedExpense;
@@ -39,7 +38,7 @@ function expensesReduser(state, action) {
 }
 
 export function ExpensesContextProvider({ children }) {
-  const [state, dispatch] = useReducer(expensesReduser, []);
+  const [state, dispatch] = useReducer(expensesReduser, [...DUMMY_EXPENSES]);
 
   function addExpense(expense) {
     dispatch({ type: 'ADD', payload: expense });
