@@ -1,14 +1,20 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { GlobalStyles } from '../../constants/styles';
 
-export default function IconButton({ type = 'primary', icon, color = '#ffffff', onPress, children }) {
+export default function IconButton({ type = 'primary', size = 16, icon, color = '#ffffff', buttonStyles, onPress, children }) {
   return (
     <Pressable
-      style={({ pressed }) => [styles.button, pressed && styles.pressed, type === 'secondary' && styles.secondary]}
+      style={({ pressed }) => [
+        styles.button,
+        pressed && styles.pressed,
+        type === 'secondary' && styles.secondary,
+        buttonStyles && buttonStyles,
+      ]}
       android_ripple={{ color: '#ccc' }}
       onPress={onPress}
     >
-      {icon && <Ionicons name={icon} size={16} color={color} />}
+      {icon && <Ionicons name={icon} size={size} color={color} />}
       {children && <Text style={[styles.text, type === 'secondary' && styles.secondaryText]}>{children}</Text>}
     </Pressable>
   );
@@ -19,7 +25,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     backgroundColor: '#000000',
-    padding: 10,
+    padding: 16,
     borderRadius: 8,
     gap: 12,
   },
@@ -27,7 +33,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   secondaryText: {
-    color: '#000000',
+    color: GlobalStyles.colors.primary500,
   },
   text: {
     color: '#ffffff',

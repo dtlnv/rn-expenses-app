@@ -1,6 +1,18 @@
+import { useContext, useEffect, useState } from 'react';
 import ExpensesOutput from '../components/ExpensesOutput/ExpensesOutput';
-import { DUMMY_EXPENSES } from '../constants/dummy-data';
+import ExpensesContext from '../store/expenses-context';
 
 export default function AllExpenses() {
-  return <ExpensesOutput expenses={DUMMY_EXPENSES} expensesPeriod='Total' />;
+  const expensesContext = useContext(ExpensesContext);
+  const [list, setList] = useState([]);
+
+  useEffect(() => {
+    if (expensesContext.expenses) {
+      const expenses = [...expensesContext.expenses];
+      expenses.sort((a, b) => b.date - a.date);
+      setList(expenses.map((expense) => ({ ...expense, date: expense.date.toLocaleDateString() })));
+    }
+  }, [expensesContext.expenses]);
+
+  return <ExpensesOutput expenses={list} expensesPeriod='Total' />;
 }
