@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { GlobalStyles } from '../../constants/styles';
 
 export default function ExpensesSummary({ expenses, periodName }) {
-  const expensesSum = expenses.reduce((acc, expense) => acc + expense.amount, 0);
+  const expensesSum = expenses.reduce((acc, expense) => acc + expense.price, 0);
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{periodName}</Text>

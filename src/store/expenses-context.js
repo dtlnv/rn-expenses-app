@@ -3,9 +3,9 @@ import { DUMMY_EXPENSES } from '../constants/dummy-data';
 
 const ExpensesContext = createContext({
   expenses: [],
-  addExpense: ({ description, amount, date }) => {},
+  addExpense: ({ description, price, date }) => {},
   deleteExpense: (id) => {},
-  updateExpense: (id, { description, amount, date }) => {},
+  updateExpense: (id, { description, price, date }) => {},
 });
 
 function expensesReduser(state, action) {
@@ -16,7 +16,7 @@ function expensesReduser(state, action) {
         {
           id: Math.random().toString(),
           description: action.payload.description,
-          amount: Number(action.payload.amount),
+          price: Number(action.payload.price),
           date: new Date(),
         },
       ];
@@ -27,7 +27,7 @@ function expensesReduser(state, action) {
       const updatedExpense = {
         ...state[expenseIndex],
         description: action.payload.description,
-        amount: Number(action.payload.amount),
+        price: Number(action.payload.price),
         date: action.payload.date,
       };
       const updatedExpenses = [...state];

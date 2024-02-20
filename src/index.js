@@ -7,13 +7,17 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 // icons
 import { Octicons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 // screens
 import ManageExpense from './screens/ManageExpense.screen';
 import RecentExpenses from './screens/RecentExpenses.screen';
 import AllExpenses from './screens/AllExpenses.screen';
-import { GlobalStyles } from './constants/styles';
+import BarCodeScannerScreen from './screens/BarCodeScanner.screen';
+
 import PlusButton from './components/UI/PlusButton';
+import { GlobalStyles } from './constants/styles';
+
 import { ExpensesContextProvider } from './store/expenses-context';
 
 const Stack = createNativeStackNavigator();
@@ -21,7 +25,7 @@ const Tab = createBottomTabNavigator();
 
 const ExpensesOverview = () => (
   <Tab.Navigator
-    screenOptions={({ navigation }) => ({
+    screenOptions={{
       headerStyle: {
         backgroundColor: GlobalStyles.colors.primary500,
       },
@@ -30,24 +34,33 @@ const ExpensesOverview = () => (
         backgroundColor: GlobalStyles.colors.primary500,
       },
       tabBarActiveTintColor: GlobalStyles.colors.accent500,
-      headerRight: ({ tintColor }) => <PlusButton tintColor={tintColor} onPress={() => navigation.navigate('ManageExpense')} />,
-    })}
+    }}
   >
     <Tab.Screen
       name='RecentExpenses'
       component={RecentExpenses}
-      options={{
+      options={({ navigation }) => ({
         title: 'Recent Expenses',
         tabBarLabel: 'Recent',
         tabBarIcon: ({ color, size }) => <Octicons name='history' color={color} size={size} />,
-      }}
+        headerRight: ({ tintColor }) => <PlusButton tintColor={tintColor} onPress={() => navigation.navigate('ManageExpense')} />,
+      })}
     />
     <Tab.Screen
       name='AllExpenses'
       component={AllExpenses}
-      options={{
+      options={({ navigation }) => ({
         title: 'All Expenses',
         tabBarIcon: ({ color, size }) => <Octicons name='list-unordered' color={color} size={size} />,
+        headerRight: ({ tintColor }) => <PlusButton tintColor={tintColor} onPress={() => navigation.navigate('ManageExpense')} />,
+      })}
+    />
+    <Tab.Screen
+      name='BarcodeScanner'
+      component={BarCodeScannerScreen}
+      options={{
+        title: 'Barcode Scanner',
+        tabBarIcon: ({ color, size }) => <Ionicons name='barcode-outline' size={size} color={color} />,
       }}
     />
   </Tab.Navigator>

@@ -37,12 +37,12 @@ export default function ExpenseItem({ expense }) {
     <Pressable onPress={openExpenseItem}>
       <Swipeable renderRightActions={rightActions}>
         <View style={styles.item}>
-          <View>
+          <View style={styles.infoContainer}>
             <Text style={[styles.description, styles.text]}>{expense?.description}</Text>
             <Text style={styles.text}>{expense?.date}</Text>
           </View>
-          <View style={styles.amountContainer}>
-            <Text style={styles.amount}>{expense?.amount}</Text>
+          <View style={styles.priceContainer}>
+            <Text style={styles.price}>{expense?.price.toFixed(2)}</Text>
           </View>
         </View>
       </Swipeable>
@@ -63,6 +63,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     borderRadius: 7,
   },
+  infoContainer: {
+    flex: 1,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    flexDirection: 'column',
+  },
   text: {
     color: GlobalStyles.colors.primary50,
   },
@@ -71,7 +77,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     fontWeight: 'bold',
   },
-  amountContainer: {
+  priceContainer: {
     paddingHorizontal: 12,
     paddingVertical: 4,
     backgroundColor: 'white',
@@ -79,7 +85,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 4,
   },
-  amount: {
+  price: {
     color: GlobalStyles.colors.primary500,
     fontWeight: 'bold',
   },

@@ -1,13 +1,14 @@
 import { useContext, useEffect, useState } from 'react';
-import { Alert, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Alert, StyleSheet, View } from 'react-native';
 import IconButton from '../components/UI/IconButton';
 import ExpensesContext from '../store/expenses-context';
+import Input from '../components/UI/Input';
 
 export default function ManageExpense({ navigation, route }) {
   const expense = route.params?.expense;
   const [isEditMode, setIsEditMode] = useState(false);
   const [description, setDescription] = useState(expense?.description || '');
-  const [amount, setAmount] = useState(expense?.amount ? String(expense?.amount) : '');
+  const [price, setPrice] = useState(expense?.price ? String(expense?.price) : '');
   const expensesContext = useContext(ExpensesContext);
 
   useEffect(() => {
@@ -21,14 +22,14 @@ export default function ManageExpense({ navigation, route }) {
   }, [expense, navigation]);
 
   function saveHandler() {
-    if (!description || !amount) {
-      Alert.alert('Invalid input', 'Please enter a valid description and amount.', [{ text: 'OK', style: 'destructive' }]);
+    if (!description || !price) {
+      Alert.alert('Invalid input', 'Please enter a valid description and price.', [{ text: 'OK', style: 'destructive' }]);
       return;
     }
     if (isEditMode) {
-      expensesContext.updateExpense(expense.id, { description, amount, date: new Date() });
+      expensesContext.updateExpense(expense.id, { description, price, date: new Date() });
     } else {
-      expensesContext.addExpense({ description, amount });
+      expensesContext.addExpense({ description, price });
     }
     navigation.goBack();
   }
@@ -52,32 +53,26 @@ export default function ManageExpense({ navigation, route }) {
   return (
     <View style={styles.container}>
       <View>
-        <View>
-          <Text style={styles.textLabel}>Description</Text>
-          <TextInput
-            style={styles.textInput}
-            placeholder='Type description here...'
-            value={description}
-            onChangeText={setDescription}
-            autoFocus
-          />
-        </View>
-        <View>
-          <Text style={styles.textLabel}>Amount</Text>
-          <TextInput
-            style={styles.textInput}
-            placeholder='Add an amount...'
-            keyboardType='numeric'
-            value={amount}
-            onChangeText={setAmount}
-          />
-        </View>
+        <Input
+          label='Description'
+          placeholder='Type description here...'
+          value={description}
+          onChangeText={setDescription}
+          autoFocus
+        />
+        <Input
+          label='Price'
+          placeholder='Add an price here...'
+          value={price}
+          onChangeText={setPrice}
+          keyboardType='numeric'
+        />
       </View>
       <View style={styles.buttonRow}>
         <IconButton type='secondary' onPress={cancelHandler}>
           Cancel
         </IconButton>
-        <IconButton onPress={saveHandler}>Save</IconButton>
+        <IconButton onPress={saveHandler}>{isEditMode ? 'Update' : 'Add'}</IconButton>
       </View>
     </View>
   );
@@ -95,18 +90,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     gap: 16,
-  },
-  textLabel: {
-    fontSize: 14,
-    color: '#555444',
-    marginBottom: 8,
-  },
-  textInput: {
-    // borderBottomWidth: 1,
-    // borderBottomColor: '#ccc',
-    marginBottom: 16,
-    marginTop: 8,
-    // padding: 8,
-    fontSize: 16,
   },
 });
