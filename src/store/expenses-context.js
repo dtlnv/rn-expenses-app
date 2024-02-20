@@ -1,5 +1,5 @@
-import { createContext, useReducer } from 'react';
-import { DUMMY_EXPENSES } from '../constants/dummy-data';
+import { createContext, useEffect, useReducer } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ExpensesContext = createContext({
   expenses: [],
@@ -32,13 +32,32 @@ function expensesReduser(state, action) {
       const updatedExpenses = [...state];
       updatedExpenses[expenseIndex] = updatedExpense;
       return updatedExpenses;
+    case 'SYNC':
+      console.log('SYNC', action.payload);
+      return [...action.payload];
     default:
       return state;
   }
 }
 
 export function ExpensesContextProvider({ children }) {
-  const [state, dispatch] = useReducer(expensesReduser, [...DUMMY_EXPENSES]);
+  const [state, dispatch] = useReducer(expensesReduser, []);
+
+  useEffect(() => {
+    (async () => {
+      const expenses = await AsyncStorage.getItem('expenses');
+      console.log('expenses', expenses);
+      const parsedExpenses = JSON.parse(expenses);
+      console.log('parsedExpenses', parsedExpenses);
+      if (parsedExpenses.length > 0) {
+        dispatch({ type: 'SYNC', payload: parsedExpenses });
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    AsyncStorage.setItem('expenses', JSON.stringify(state));
+  }, [state]);
 
   function addExpense(expense) {
     dispatch({ type: 'ADD', payload: expense });

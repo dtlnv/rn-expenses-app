@@ -9,15 +9,21 @@ export default function RecentExpenses() {
   useEffect(() => {
     if (expensesContext.expenses) {
       const expenses = [...expensesContext.expenses];
-      expenses.sort((a, b) => b.date - a.date);
+      expenses.sort((a, b) => new Date(b.date) - new Date(a.date));
 
       const recentExpenses = expenses.filter((expense) => {
         const today = new Date();
         const lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
-        return expense.date >= lastWeek;
+        const expenseDate = new Date(expense.date);
+        return expenseDate >= lastWeek;
       });
 
-      setList(recentExpenses.map((expense) => ({ ...expense, date: expense.date.toLocaleDateString() })));
+      setList(
+        recentExpenses.map((expense) => {
+          const date = new Date(expense.date);
+          return { ...expense, date: date.toLocaleDateString() };
+        })
+      );
     }
   }, [expensesContext.expenses]);
 

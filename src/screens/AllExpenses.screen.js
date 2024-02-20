@@ -9,8 +9,13 @@ export default function AllExpenses() {
   useEffect(() => {
     if (expensesContext.expenses) {
       const expenses = [...expensesContext.expenses];
-      expenses.sort((a, b) => b.date - a.date);
-      setList(expenses.map((expense) => ({ ...expense, date: expense.date.toLocaleDateString() })));
+      expenses.sort((a, b) => new Date(b.date) - new Date(a.date));
+      setList(
+        expenses.map((expense) => {
+          const date = new Date(expense.date);
+          return { ...expense, date: date.toLocaleDateString() };
+        })
+      );
     }
   }, [expensesContext.expenses]);
 
